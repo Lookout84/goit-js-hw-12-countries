@@ -10,8 +10,12 @@ function getInputValue(event) {
   const form = event.currentTarget;
   const inputValue = form.elements.query.value;
 
-  refs.ulCountries.innerHTML = " ";
-  fetchCountries(inputValue).then(updateUlCountries);
+  console.log(inputValue);
+
+  refs.ulCountries.innerHTML = "";
+  fetchCountries(inputValue)
+    .then(updateUlCountries)
+    .catch((error) => console.log(error));
 }
 
 function updateUlCountries(name) {
@@ -19,6 +23,12 @@ function updateUlCountries(name) {
   refs.ulCountries.insertAdjacentHTML("beforeend", markup);
 }
 
-fetch("https://restcountries.eu/rest/v2/name/ita")
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+// fetch("https://restcountries.eu/rest/v2/name/italy")
+//   .then((res) => {
+//     return res.json();
+//   })
+//   .then((data) => {
+//     console.log(data);
+//     const mark = template(data);
+//     console.log(mark);
+//   });
