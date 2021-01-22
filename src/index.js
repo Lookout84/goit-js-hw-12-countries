@@ -3,9 +3,9 @@ import fetchCountries from "./js/fetchCountries.js";
 import refs from "./js/refs.js";
 import template from "./templates/template.hbs";
 import templ from "./templates/templ.hbs";
-import debounce from "lodash/debounce";
+import {debounce as _debounce} from 'lodash/fp';
 
-refs.formInput.addEventListener("input", debounce(getInputValue, 500));
+refs.formInput.addEventListener("input", _debounce(getInputValue, 500));
 
 function getInputValue(event) {
   event.preventDefault();
