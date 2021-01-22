@@ -3,16 +3,15 @@ import fetchCountries from "./js/fetchCountries.js";
 import refs from "./js/refs.js";
 import template from "./templates/template.hbs";
 import templ from "./templates/templ.hbs";
+import debounce from "lodash/debounce";
 
-refs.formInput.addEventListener("input", getInputValue);
+refs.formInput.addEventListener("input", debounce(getInputValue, 500));
 
 function getInputValue(event) {
   event.preventDefault();
   const form = event.currentTarget;
   const inputValue = form.elements.query.value;
-
   console.log(inputValue);
-
   refs.ulCountries.innerHTML = "";
   fetchCountries(inputValue)
     .then(updateUlCountries)
@@ -20,7 +19,7 @@ function getInputValue(event) {
 }
 
 function updateUlCountries(name) {
-  const markup = templ(name);
+  const markup = template(name);
   refs.ulCountries.insertAdjacentHTML("beforeend", markup);
 }
 
