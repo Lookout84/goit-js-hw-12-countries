@@ -2,6 +2,7 @@ import css from "./css/styles.css";
 import fetchCountries from "./js/fetchCountries.js";
 import refs from "./js/refs.js";
 import template from "./templates/template.hbs";
+import templ from "./templates/templ.hbs";
 
 refs.formInput.addEventListener("input", getInputValue);
 
@@ -19,7 +20,7 @@ function getInputValue(event) {
 }
 
 function updateUlCountries(name) {
-  const markup = template(name);
+  const markup = templ(name);
   refs.ulCountries.insertAdjacentHTML("beforeend", markup);
 }
 
