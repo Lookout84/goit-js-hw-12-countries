@@ -3,10 +3,10 @@ import fetchCountries from "./js/fetchCountries.js";
 import refs from "./js/refs.js";
 import oneCountry from "./templates/template.hbs";
 import manyCountries from "./templates/templ.hbs";
-import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/core/dist/PNotify.css";
 
-const { error } = require("@pnotify/core");
-const debounce = require("lodash.debounce");
+import { error } from "@pnotify/core";
+import debounce from "lodash.debounce";
 
 refs.formInput.addEventListener("input", debounce(getInputValue, 500));
 
@@ -14,6 +14,9 @@ function getInputValue(event) {
   event.preventDefault();
   refs.ulCountries.innerHTML = "";
   const inputValue = event.target.value;
+  if(!inputValue) {
+    return
+  }
 
   fetchCountries(inputValue)
     .then((data) => {
