@@ -1,34 +1,44 @@
 import css from "./css/styles.css";
 import fetchCountries from "./js/fetchCountries.js";
 import refs from "./js/refs.js";
-import template from "./templates/template.hbs";
-import templ from "./templates/templ.hbs";
-import {debounce as _debounce} from 'lodash/fp';
+import oneCountry from "./templates/template.hbs";
+import manyCountries from "./templates/templ.hbs";
+import "@pnotify/core/dist/BrightTheme.css";
 
-refs.formInput.addEventListener("input", _debounce(getInputValue, 500));
+const { error } = require("@pnotify/core");
+const debounce = require("lodash.debounce");
+
+refs.formInput.addEventListener("input", debounce(getInputValue, 500));
 
 function getInputValue(event) {
   event.preventDefault();
-  const form = event.currentTarget;
-  const inputValue = form.elements.query.value;
-  console.log(inputValue);
   refs.ulCountries.innerHTML = "";
+  const inputValue = event.target.value;
+
   fetchCountries(inputValue)
-    .then(updateUlCountries)
-    .catch((error) => console.log(error));
+    .then((data) => {
+      if (data.length > 10) {
+        error({
+          text: "Too many matches found. Please enter a more specific query!",
+        });
+      } else if (data.status === 404) {
+        error({
+          text:
+            "No country has been found. Please enter a more specific query!",
+        });
+      } else if (data.length === 1) {
+        updateUlCountries(data, oneCountry);
+      } else if (data.length <= 10) {
+        updateUlCountries(data, manyCountries);
+      }
+    })
+    .catch((Error) => {
+      Error({ text: "You must enter query parameters!" });
+      console.log(Error);
+    });
 }
 
-function updateUlCountries(name) {
+function updateUlCountries(name, template) {
   const markup = template(name);
   refs.ulCountries.insertAdjacentHTML("beforeend", markup);
 }
-
-// fetch("https://restcountries.eu/rest/v2/name/italy")
-//   .then((res) => {
-//     return res.json();
-//   })
-//   .then((data) => {
-//     console.log(data);
-//     const mark = template(data);
-//     console.log(mark);
-//   });

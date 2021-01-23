@@ -1,6 +1,79 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   /* text-align: center; */
-  background: #ffffff;
+  background-image: url(../img/bg.png);
   font-family: sans-serif;
   font-weight: 100;
+  font-size: 20px;
+}
+
+.input-form {
+  margin-top: 60px;
+  width: 600px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.countries-name {
+  font-size: 40px;
+}
+
+.flag {
+  width: 400px;
+  height: 100%;
+  margin-left: 10px;
+}
+
+.text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  font-size: 20px;
+  font-weight: bold;
+  max-width: 500px;
+  text-align: left;
+  margin: 0 auto;
+  line-height: 1.2;
+}
+
+.countries {
+  padding: 0;
+  margin: 20 px 0;
+}
+
+.country-value {
+  display: flex;
+  justify-content: baseline;
+}
+
+.lang-list {
+  margin-top: 10px;
+  line-height: 1.2;
+  margin: 0 auto;
+}
+
+.pnotify {
+  top: 25px;
+  right: 75px;
+  position: absolute;
+  height: auto;
+  z-index: 9999;
 }
